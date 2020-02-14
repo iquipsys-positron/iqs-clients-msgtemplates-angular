@@ -1,0 +1,1 @@
+export { MsgTempatesModule } from './msgtemplates.module';

@@ -1,0 +1,102 @@
+<pip-document-layout>
+    <pip-document-content>
+        <div>
+            <mat-progress-bar mode="indeterminate" *ngIf="loading" class="pip-loading"></mat-progress-bar>
+
+            <div fxLayout>
+                <div fxFlex>
+                    {{ updateTitleText }}
+                </div>
+
+                <div>
+                    <button mat-button [matMenuTriggerFor]="menuLang" style="padding-right: 0">
+                        {{ ln | translate }}
+                        <mat-icon>arrow_drop_down</mat-icon>
+                    </button>
+                    <mat-menu #menuLang="matMenu">
+                        <button *ngFor="let language of languages" mat-menu-item (click)="changeLn(language )">
+                            {{ language | translate }}
+                            <mat-icon *ngIf="language == ln" style="margin-bottom: 10px">check</mat-icon>
+                        </button>
+                    </mat-menu>
+                </div>
+
+            </div>
+
+            <mat-error *ngIf="error" class="bm16">
+                {{ error.message || error }}
+            </mat-error>
+            <form #messageForm="ngForm" fxLayout="column" fxLayoutGap="16px">
+                <div fxLayout="column" fxLayoutGap="8px">
+                    <mat-form-field>
+                        <input matInput [placeholder]="nameText" type="text" id="name" name="name" name="title"
+                               required [(ngModel)]="updateItem.name" (ngModelChange)="onChange()" #_name="ngModel" />
+
+                        <md-error *ngIf="(_name.dirty || _name.touched) && _name.invalid">
+                            <span *ngIf="_name.errors.required">
+                                {{ messageErrorNameRequired | translate }}
+                            </span>
+                        </md-error>
+                    </mat-form-field>
+
+                    <pip-button-toggle-group>
+                        <mat-button-toggle-group name="st" id="st" (ngModelChange)="changeStatus($event)" [ngModel]="updateItem.status"
+                                                 #_st="ngModel">
+                            <mat-button-toggle *ngFor="let st of statuses" fxFlex="fill" [value]="st.id" style="text-align: center">
+                                {{ st.title | translate }}
+                            </mat-button-toggle>
+
+                        </mat-button-toggle-group>
+                    </pip-button-toggle-group>
+
+                    <mat-form-field>
+                        <input matInput [placeholder]="subjectText" type="text" id="subject" name="subject" [(ngModel)]="updateItem.subject[ln]"
+                               (ngModelChange)="onChange()" #_subject="ngModel" />
+                    </mat-form-field>
+
+                    <mat-tab-group class="pip-text-tabs-groups">
+                        <mat-tab [label]="textText">
+                            <mat-form-field class="pip-text-container">
+                                <textarea matInput matTextareaAutosize type="text" id="text" name="text" [(ngModel)]="updateItem.text[ln]"
+                                          (ngModelChange)="onChange()" #_text="ngModel">
+                                </textarea>
+                            </mat-form-field>
+                        </mat-tab>
+                        <mat-tab [label]="htmlText | uppercase">
+                            <mat-form-field class="pip-text-container">
+                                <textarea matInput matTextareaAutosize type="text" id="html" name="html" [(ngModel)]="updateItem.html[ln]"
+                                          (ngModelChange)="onChange()" #_html="ngModel">
+                                </textarea>
+                            </mat-form-field>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </form>
+        </div>
+    </pip-document-content>
+    <pip-document-footer>
+
+        <pip-action-list style="margin-top: 8px">
+            <button mat-button class="pip-action-list-item" (click)="onReview(message)" [disabled]="loading">
+                <mat-icon fontSet="webui" fontIcon="webui-preview"></mat-icon>
+                <span class="pip-title">{{ reviewText }}</span>
+            </button>
+
+            <button mat-button class="pip-action-list-item" (click)="onCancel()" *ngIf="isChange" [disabled]="loading">
+                <mat-icon fontSet="webui" fontIcon="webui-cross"></mat-icon>
+
+                <span class="pip-title">{{ cancelText }}</span>
+            </button>
+
+            <button mat-button class="pip-action-list-item" (click)="saveSubmit()" *ngIf="isChange" [disabled]="loading || !isChange || messageForm.invalid">
+                <mat-icon fontSet="webui" fontIcon="webui-check"></mat-icon>
+                <span class="pip-title">{{ updateText }}</span>
+            </button>
+
+            <button mat-button class="pip-action-list-item" (click)="deleteSubmit()" [disabled]="loading" *ngIf="updateItem.id">
+                <mat-icon fontSet="webui" fontIcon="webui-trash"></mat-icon>
+                <span class="pip-title">{{ deleteText }}</span>
+            </button>
+        </pip-action-list>
+    </pip-document-footer>
+</pip-document-layout>

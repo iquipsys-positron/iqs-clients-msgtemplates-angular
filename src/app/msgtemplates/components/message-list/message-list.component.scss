@@ -1,0 +1,164 @@
+:host {
+    display: block; //position: relative;
+    height: 100%;
+}
+
+.pip-subtitle {
+    opacity: 0.54;
+    font-weight: 400;
+}
+
+.pip-title {
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+.pip-footer {
+    margin-top: 8px;
+    margin-bottom: 4px !important;
+}
+
+.pip-footer-text {
+    margin-bottom: 0px;
+}
+
+.pip-loading {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 1px;
+}
+
+.pip-server {}
+
+.pip-progress {
+    width: 100%;
+    text-align: center;
+    mat-progress-bar {
+        max-width: 250px;
+        margin: 0 auto;
+        margin-top: 16px;
+    }
+}
+
+.pip-list-empty {
+    width: 100%;
+    height: 100%;
+}
+
+::ng-deep .pip-gt-sm {
+    pip-message-list {
+        .pip-show-gt-sm {
+            display: block;
+        }
+        .pip-show-xs-sm {
+            display: none;
+        }
+    }
+}
+
+::ng-deep .pip-sm,
+::ng-deep .pip-xs {
+    pip-message-list {
+        .pip-show-gt-sm {
+            display: none;
+        }
+        .pip-show-xs-sm {
+            display: block;
+        }
+    }
+}
+
+.mat-list-item {
+    outline: none;
+    height: 100% !important;
+}
+
+:host ::ng-deep .mat-list-item-content {
+    align-items: flex-start !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    height: 100% !important;
+}
+
+:host {
+    display: block;
+}
+
+.pip-ref-item {
+    $font-family: Roboto, 'Helvetica Neue', sans-serif;
+    $font-size-subhead1: 16px;
+    $font-weight-subhead1: 400;
+    $letter-spacing-subhead1: .01em;
+    $line-height-subhead1: 24px;
+    $font-subhead1: normal $font-weight-subhead1 $font-size-subhead1 $font-family;
+    $font-size-subhead2: 16px;
+    $font-weight-subhead2: 500;
+    $letter-spacing-subhead2: .01em;
+    $line-height-subhead2: 24px;
+    $font-subhead2: normal $font-weight-subhead2 $font-size-subhead2 $font-family;
+    $font-size-body1: 14px;
+    $font-weight-body1: 400;
+    $letter-spacing-body1: .01em;
+    $line-height-body1: 20px;
+    $font-body1: normal $font-weight-body1 $font-size-body1 $font-family;
+    $font-size-body2: 14px;
+    $font-weight-body2: 500;
+    $letter-spacing-body2: .01em;
+    $line-height-body2: 24px;
+    $font-body2: normal $font-weight-body2 $font-size-body2 $font-family;
+    .mat-list-item {
+        outline: none;
+    }
+    :host ::ng-deep .mat-list-item-content {
+        align-items: flex-start !important;
+        padding: 8px 16px !important;
+        height: 100% !important;
+    }
+    :host {
+        display: block;
+    }
+    .pip-title {
+        -webkit-user-select: auto;
+        font: $font-subhead2 !important;
+        margin-top: 1px !important;
+        margin-bottom: 4px !important;
+    }
+    .pip-subtitle {
+        font: $font-body1 !important;
+        opacity: 0.54;
+    }
+    .pip-icon {
+        width: 15px;
+        height: 15px;
+        min-height: 15px;
+        min-width: 15px;
+        vertical-align: middle;
+        margin-top: -1px;
+        font-size: $font-size-body1;
+    }
+    .pip-text-bold {
+        font: $font-body2 !important;
+    }
+    .pip-text {
+        font: $font-body1 !important;
+        max-height: 2.5em;
+        line-height: 1.5em;
+        margin-right: 16px;
+        overflow: hidden;
+    }
+    .pip-pic {
+        height: 100% !important;
+        margin-top: 8px;
+    }
+    .text-overflow {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    p {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+}

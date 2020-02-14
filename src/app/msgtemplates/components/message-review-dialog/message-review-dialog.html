@@ -1,0 +1,21 @@
+<div class="pip-header">
+    <div [innerHTML]="review.message.subject[review.ln]"></div>
+</div>
+
+<mat-tab-group class="pip-text-tabs-groups">
+    <mat-tab label="TEXT">
+        <div class="pip-content">
+            <div [innerHTML]="review.message.html[review.ln]"></div>
+        </div>
+        <div [innerHTML]="review.message.text[review.ln]"></div>
+    </mat-tab>
+    <mat-tab label="HTML">
+        <div class="pip-content">
+            <div [innerHTML]="review.message.html[review.ln]"></div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+<div class="pip-footer">
+    <button mat-button (click)="onNoClick()">Close</button>
+</div>
