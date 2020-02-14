@@ -12,7 +12,7 @@ export class LangFilterPipe implements PipeTransform {
         }
 
         return items.filter((v, k) => {
-            return languges[k] === value
-        })
+            return languges[k] === value;
+        });
     }
 }
