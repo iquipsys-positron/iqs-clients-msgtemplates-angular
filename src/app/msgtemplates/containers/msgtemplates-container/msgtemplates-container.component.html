@@ -28,13 +28,13 @@
                     <pip-empty-state-actions [actions]="emptyStateActions"></pip-empty-state-actions>
                 </pip-empty-state>
 
-                <button mat-fab color="primary" class="pip-fab" (click)="initAdd()"
-                    *ngIf="(updateState$ | async) == 'view' || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'"
-                    [disabled]="(loading$ | async) || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'">
-                    <mat-icon aria-label="create">add</mat-icon>
-                </button>
             </pip-scrollable-content>
         </pip-scrollable>
+        <button mat-fab color="primary" class="pip-fab" (click)="initAdd()"
+            *ngIf="(updateState$ | async) == 'view' || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'"
+            [disabled]="(loading$ | async) || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'">
+            <mat-icon aria-label="create">add</mat-icon>
+        </button>
     </div>
 
     <div class="pip-menu-container" [ngSwitch]="updateState$ | async">
