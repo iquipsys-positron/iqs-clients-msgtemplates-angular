@@ -1,6 +1,12 @@
 :host {
-    display: block; //position: relative;
-    height: 100%;
+    display: flex; //position: relative;
+    flex: 1;
+
+    .mat-nav-list {
+        pip-ref-item ::ng-deep .mat-list-item-content {
+            align-items: center!important;
+        }
+    }
 }
 
 .pip-subtitle {

@@ -77,7 +77,7 @@
     <pip-document-footer>
 
         <pip-action-list style="margin-top: 8px">
-            <button mat-button class="pip-action-list-item" (click)="onReview(message)" [disabled]="loading">
+            <button mat-button class="pip-action-list-item" (click)="onReview(updateItem)" [disabled]="loading">
                 <mat-icon fontSet="webui" fontIcon="webui-preview"></mat-icon>
                 <span class="pip-title">{{ reviewText }}</span>
             </button>

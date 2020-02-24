@@ -16,7 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TranslateModule } from '@ngx-translate/core';
 import { PipEmptyStateModule } from 'pip-webui2-controls';
 import { PipDocumentListModule } from 'pip-webui2-documents';
-import { PipMediaModule, PipMenuLayoutModule, PipShadowModule, PipDocumentLayoutModule, PipSidenavModule } from 'pip-webui2-layouts';
+import { PipMediaModule, PipMenuLayoutModule, PipShadowModule, PipDocumentLayoutModule, PipSidenavModule, PipScrollableModule } from 'pip-webui2-layouts';
 import { PipNavService, PipNavModule } from 'pip-webui2-nav';
 import { PipMessageEffects } from '../../store/message.effects';
 import { pipMessageReducer, InitialPipMessageState } from '../../store/message.reducer';
@@ -57,6 +57,7 @@ import { IqsAskDialogComponent, IqsAskDialogModule } from 'iqs-libs-clientshell2
     PipMediaModule.forRoot(),
     PipSidenavModule.forRoot(),
     PipMenuLayoutModule,
+    PipScrollableModule,
     PipShadowModule,
     PipEmptyStateModule,
     PipDocumentLayoutModule,

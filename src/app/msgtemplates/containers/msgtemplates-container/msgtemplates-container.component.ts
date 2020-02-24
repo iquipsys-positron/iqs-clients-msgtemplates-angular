@@ -366,7 +366,7 @@ export class MsgTemplatesContainerComponent implements OnInit, OnDestroy {
                 this.navService.showNavIcon({
                     icon: 'arrow_back',
                     action: () => {
-                        if (this._state == PipUpdateState.Edit || this._state === PipUpdateState.Create) {
+                        if (this._state === PipUpdateState.Edit || this._state === PipUpdateState.Create) {
                             this.select(null);
                         } else {
                             this.cancel();

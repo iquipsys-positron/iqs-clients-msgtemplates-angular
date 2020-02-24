@@ -7,32 +7,33 @@
                     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                 </div>
             </pip-empty-state>
-            <img class="pip-show-gt-sm pip-list-empty" src="{{ emptyListUrl }}" alt="{{ emptyListUrl || 'empty messages' }}">
+            <pip-empty-state class="pip-show-gt-sm">
+                <div class="pip-show-gt-sm iqs-menu-empty"></div>
+            </pip-empty-state>
         </div>
 
 
         <div *ngSwitchDefault>
-            <pip-ref-item *ngFor="let message of messages; trackBy: message?.id" pipSelectable (click)="select(message?.id)"
-             [id]="message.id" [title]="message.name" [subtitle]="message.status"
-             [defaultIconBackground]="MessageColor" [letterSource]="message.name.toUpperCase()">
+            <pip-ref-item *ngFor="let message of messages; trackBy: message?.id" pipSelectable
+                (click)="select(message?.id)" [id]="message.id" [title]="message.name" [subtitle]="message.status"
+                [defaultIconBackground]="MessageColor" [letterSource]="message.name.toUpperCase()">
             </pip-ref-item>
         </div>
 
         <div *ngSwitchCase="'create'">
-            <pip-ref-item class="pip-selectable pip-selected-item" 
-            [title]="newMessageText" [subtitle]="newMessageSubText"
-            [defaultIconBackground]="MessageColor" [letterSource]="'+'">
+            <pip-ref-item class="pip-selectable pip-selected-item" [title]="newMessageText"
+                [subtitle]="newMessageSubText" [defaultIconBackground]="MessageColor" [letterSource]="'+'">
             </pip-ref-item>
 
-        <pip-ref-item *ngFor="let message of messages; trackBy: message?.id" (click)="select(message?.id)"
-             [id]="message.id" [title]="message.name" [subtitle]="message.status"
-             [defaultIconBackground]="MessageColor" [letterSource]="message.name.toUpperCase()">
+            <pip-ref-item *ngFor="let message of messages; trackBy: message?.id" (click)="select(message?.id)"
+                [id]="message.id" [title]="message.name" [subtitle]="message.status"
+                [defaultIconBackground]="MessageColor" [letterSource]="message.name.toUpperCase()">
             </pip-ref-item>
         </div>
 
 
 
-<!-- 
+        <!-- 
         <div *ngSwitchCase="'empty'">
             <pip-empty-state class="pip-show-xs-sm">
                 <pip-empty-state-title [text]="emptyText" [subText]="emptySubText" [imageUrl]="emptyImageUrl"></pip-empty-state-title>

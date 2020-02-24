@@ -1,41 +1,49 @@
 <pip-menu-layout [ngClass]="{'pip-single-content': isSingle$ | async}">
 
     <div class="pip-menu" fxLayout="column">
-        <div class="scroll-container" fxLayout="column">
-            <pip-message-list *ngIf="(updateState$ | async) != 'empty' && (updateState$ | async) != 'progress' || media.isMainActive('gt-sm')"
-                              [selectId]="selectId$ | async" [messages]="messages$ | async" [loading]="loading$ | async"
-                              [state]="updateState$ | async" (selectChange)="select($event)" (add)="initAdd()"
-                              [progressText]="'MESSAGE.LOADING' | translate" [emptyText]="'MESSAGE.EMPTY' | translate"
-                              [emptySubText]="'MESSAGE.EMPTY.SUBTEXT' | translate" [newMessageText]="'MESSAGE.CREATE.NEW.TITLE' | translate"
-                              [newMessageSubText]="'MESSAGE.CREATE.NEW.SUBTITLE' | translate" [emptyStateActions]="emptyStateActions">
-            </pip-message-list>
-            <pip-empty-state *ngIf="(updateState$ | async) == 'progress' && !media.isMainActive('gt-sm')">
-                <pip-empty-state-title [text]="'MESSAGE.LOADING' | translate" imageUrl="./assets/progress.svg"></pip-empty-state-title>
-                <div class="pip-progress">
-                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                </div>
-            </pip-empty-state>
+        <pip-scrollable fxFlex="fill">
+            <pip-scrollable-content>
+                <pip-message-list
+                    *ngIf="(updateState$ | async) != 'empty' && (updateState$ | async) != 'progress' || media.isMainActive('gt-sm')"
+                    [selectId]="selectId$ | async" [messages]="messages$ | async" [loading]="loading$ | async"
+                    [state]="updateState$ | async" (selectChange)="select($event)" (add)="initAdd()"
+                    [progressText]="'MESSAGE.LOADING' | translate" [emptyText]="'MESSAGE.EMPTY' | translate"
+                    [emptySubText]="'MESSAGE.EMPTY.SUBTEXT' | translate"
+                    [newMessageText]="'MESSAGE.CREATE.NEW.TITLE' | translate"
+                    [newMessageSubText]="'MESSAGE.CREATE.NEW.SUBTITLE' | translate"
+                    [emptyStateActions]="emptyStateActions">
+                </pip-message-list>
+                <pip-empty-state *ngIf="(updateState$ | async) == 'progress' && !media.isMainActive('gt-sm')">
+                    <pip-empty-state-title [text]="'MESSAGE.LOADING' | translate" imageUrl="./assets/progress.svg">
+                    </pip-empty-state-title>
+                    <div class="pip-progress">
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </div>
+                </pip-empty-state>
 
-            <pip-empty-state *ngIf="(updateState$ | async) == 'empty' && !media.isMainActive('gt-sm')">
-                <pip-empty-state-title [text]="'MESSAGE.EMPTY' | translate" [subText]="'MESSAGE.EMPTY.SUBTEXT' | translate"
-                                       imageUrl="./assets/empty.svg"></pip-empty-state-title>
-                <pip-empty-state-actions [actions]="emptyStateActions"></pip-empty-state-actions>
-            </pip-empty-state>
-        </div>
-        <button mat-fab color="primary" class="pip-fab" (click)="initAdd()" *ngIf="(updateState$ | async) == 'view' || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'"
-                [disabled]="(loading$ | async) || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'">
-            <mat-icon aria-label="create">add</mat-icon>
-        </button>
+                <pip-empty-state *ngIf="(updateState$ | async) == 'empty' && !media.isMainActive('gt-sm')">
+                    <pip-empty-state-title [text]="'MESSAGE.EMPTY' | translate"
+                        [subText]="'MESSAGE.EMPTY.SUBTEXT' | translate" imageUrl="./assets/empty.svg">
+                    </pip-empty-state-title>
+                    <pip-empty-state-actions [actions]="emptyStateActions"></pip-empty-state-actions>
+                </pip-empty-state>
+
+                <button mat-fab color="primary" class="pip-fab" (click)="initAdd()"
+                    *ngIf="(updateState$ | async) == 'view' || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'"
+                    [disabled]="(loading$ | async) || (updateState$ | async) == 'edit' || (updateState$ | async) == 'create'">
+                    <mat-icon aria-label="create">add</mat-icon>
+                </button>
+            </pip-scrollable-content>
+        </pip-scrollable>
     </div>
-
-
 
     <div class="pip-menu-container" [ngSwitch]="updateState$ | async">
 
         <pip-document-layout *ngSwitchCase="'progress'">
             <pip-document-content>
                 <pip-empty-state>
-                    <pip-empty-state-title [text]="'MESSAGE.LOADING' | translate" imageUrl="./assets/progress.svg"></pip-empty-state-title>
+                    <pip-empty-state-title [text]="'MESSAGE.LOADING' | translate" imageUrl="./assets/progress.svg">
+                    </pip-empty-state-title>
                     <div class="pip-progress">
                         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                     </div>
@@ -45,34 +53,42 @@
         <pip-document-layout *ngSwitchCase="'empty'">
             <pip-document-content>
                 <pip-empty-state>
-                    <pip-empty-state-title [text]="'MESSAGE.EMPTY' | translate" [subText]="'MESSAGE.EMPTY.SUBTEXT' | translate"
-                                           imageUrl="./assets/empty.svg"></pip-empty-state-title>
+                    <pip-empty-state-title [text]="'MESSAGE.EMPTY' | translate"
+                        [subText]="'MESSAGE.EMPTY.SUBTEXT' | translate" imageUrl="./assets/empty.svg">
+                    </pip-empty-state-title>
                     <pip-empty-state-actions [actions]="emptyStateActions"></pip-empty-state-actions>
                 </pip-empty-state>
             </pip-document-content>
         </pip-document-layout>
 
         <pip-message-update *ngSwitchDefault [ln]="ln" [languages]="languages" [message]="selectMessage$ | async"
-                            [loading]="loading$ | async" [error]="error$ | async" icon="mode_edit" (cancel)="cancel()"
-                            (update)="update($event)" (review)="openReview($event)" (changeLang)="changeLn($event)"
-                            (delete)="openDialog($event)" (change)="change()" [updateText]="'MESSAGE.VIEW.SAVE.TEXT' | translate"
-                            [messageText]="'MESSAGE.VIEW.EDIT.MESSAGE.TEXT' | translate" [reviewText]="'MESSAGE.VIEW.REVIEW.BUTTON.LABEL' | translate"
-                            [deleteText]="'MESSAGE.VIEW.DELETE.TEXT' | translate"
-                            [cancelText]="'MESSAGE.VIEW.BUTTON.CANCEL.TEXT' | translate" [textText]="'MESSAGE.VIEW.TEXT.TEXT' | translate"
-                            [nameText]="'MESSAGE.VIEW.NAME.LABEL' | translate" [statusText]="'MESSAGE.VIEW.STATUS.LABEL' | translate"
-                            [subjectText]="'MESSAGE.VIEW.STATUS.SUBJECT' | translate" [messageErrorNameRequired]="'MESSAGE.UPDATE.ERROR.NAME.REQUIRED' | translate"
-                            [htmlText]="'MESSAGE.VIEW.HTML.TEXT' | translate">
+            [loading]="loading$ | async" [error]="error$ | async" icon="mode_edit" (cancel)="cancel()"
+            (update)="update($event)" (review)="openReview($event)" (changeLang)="changeLn($event)"
+            (delete)="openDialog($event)" (change)="change()" [updateText]="'MESSAGE.VIEW.SAVE.TEXT' | translate"
+            [messageText]="'MESSAGE.VIEW.EDIT.MESSAGE.TEXT' | translate"
+            [reviewText]="'MESSAGE.VIEW.REVIEW.BUTTON.LABEL' | translate"
+            [deleteText]="'MESSAGE.VIEW.DELETE.TEXT' | translate"
+            [cancelText]="'MESSAGE.VIEW.BUTTON.CANCEL.TEXT' | translate"
+            [textText]="'MESSAGE.VIEW.TEXT.TEXT' | translate" [nameText]="'MESSAGE.VIEW.NAME.LABEL' | translate"
+            [statusText]="'MESSAGE.VIEW.STATUS.LABEL' | translate"
+            [subjectText]="'MESSAGE.VIEW.STATUS.SUBJECT' | translate"
+            [messageErrorNameRequired]="'MESSAGE.UPDATE.ERROR.NAME.REQUIRED' | translate"
+            [htmlText]="'MESSAGE.VIEW.HTML.TEXT' | translate">
         </pip-message-update>
 
         <pip-message-update *ngSwitchCase="'create'" [ln]="ln" [languages]="languages" [message]="emptyMessage"
-                            [loading]="loading$ | async" [error]="error$ | async" icon="add" [deleteText]="'MESSAGE.VIEW.DELETE.TEXT' | translate"
-                            (cancel)="cancel()" (update)="create($event)" (review)="openReview($event)" (changeLang)="changeLn($event)"
-                            [reviewText]="'MESSAGE.VIEW.REVIEW.BUTTON.LABEL' | translate" [updateText]="'MESSAGE.VIEW.CREATE.TEXT' | translate"
-                            [messageText]="'MESSAGE.VIEW.EDIT.MESSAGE.TEXT' | translate"
-                            [cancelText]="'MESSAGE.VIEW.BUTTON.CANCEL.TEXT' | translate" [textText]="'MESSAGE.VIEW.TEXT.TEXT' | translate"
-                            [nameText]="'MESSAGE.VIEW.NAME.LABEL' | translate" [statusText]="'MESSAGE.VIEW.STATUS.LABEL' | translate"
-                            [subjectText]="'MESSAGE.VIEW.STATUS.SUBJECT' | translate" [messageErrorNameRequired]="'MESSAGE.UPDATE.ERROR.NAME.REQUIRED' | translate"
-                            [htmlText]="'MESSAGE.VIEW.HTML.TEXT' | translate">
+            [loading]="loading$ | async" [error]="error$ | async" icon="add"
+            [deleteText]="'MESSAGE.VIEW.DELETE.TEXT' | translate" (cancel)="cancel()" (update)="create($event)"
+            (review)="openReview($event)" (changeLang)="changeLn($event)"
+            [reviewText]="'MESSAGE.VIEW.REVIEW.BUTTON.LABEL' | translate"
+            [updateText]="'MESSAGE.VIEW.CREATE.TEXT' | translate"
+            [messageText]="'MESSAGE.VIEW.EDIT.MESSAGE.TEXT' | translate"
+            [cancelText]="'MESSAGE.VIEW.BUTTON.CANCEL.TEXT' | translate"
+            [textText]="'MESSAGE.VIEW.TEXT.TEXT' | translate" [nameText]="'MESSAGE.VIEW.NAME.LABEL' | translate"
+            [statusText]="'MESSAGE.VIEW.STATUS.LABEL' | translate"
+            [subjectText]="'MESSAGE.VIEW.STATUS.SUBJECT' | translate"
+            [messageErrorNameRequired]="'MESSAGE.UPDATE.ERROR.NAME.REQUIRED' | translate"
+            [htmlText]="'MESSAGE.VIEW.HTML.TEXT' | translate">
         </pip-message-update>
 
     </div>
